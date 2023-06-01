@@ -1,10 +1,7 @@
 #include <iostream>
 #include <filesystem>
-#include <thread>
 #include <curl/curl.h>
 #include <fstream>
-#include <windows.h>
-#include <cstdlib>
 
 // thanks stackoverflow https://stackoverflow.com/questions/216823/how-to-trim-an-stdstring
 
