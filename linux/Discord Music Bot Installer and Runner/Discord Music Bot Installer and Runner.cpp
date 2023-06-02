@@ -161,9 +161,9 @@ bool isCommandAvailable(const char* command) {
 }
 
 // Function to detect and execute the package manager command
-void executePackageManagerCommand(const char* packageManager, const char* command) {
+void executePackageManagerCommand(const char* packageManager, std::string command) {
     if (isCommandAvailable(packageManager)) {
-        std::string packageManagerCommand = std::string(packageManager) + " " + std::string(command);
+        std::string packageManagerCommand = std::string(packageManager) + " " + command;
         system(packageManagerCommand.c_str());
     } else {
         std::cout << "Please run " << command << " with your dist's native package manager.";
@@ -177,7 +177,7 @@ int main()
         packageManager = "sudo apt-get install";
     } else if (isCommandAvailable("dnf")) {
         packageManager = "sudo dnf install";
-    }/* else if (isCommandAvailable("emerge")) {
+    } else if (isCommandAvailable("emerge")) {
         packageManager = "sudo emerge --ask --verbose";
     } else if (isCommandAvailable("pacman")) {
         packageManager = "sudo pacman -S";
@@ -189,7 +189,7 @@ int main()
         packageManager = "sudo pkg install";
     } else if (isCommandAvailable("pkgutil")) {
         packageManager = "sudo pkgutil -i";
-    }*/ // todo: make these install everything properly
+    } // todo: make nodejs and git install properly with each of these
     char gitCmd[] = "git -v";
     int gitExitCode;
     std::string gitOutput;
@@ -199,11 +199,9 @@ int main()
         std::this_thread::sleep_for(std::chrono::seconds(2));
     }
     else {
-        std::cout << "Git is not installed/not on version 2.40.1, running installer.\n";
-        const char* dnf = "@development-tools wget libssl-dev libcurl4-gnutls-dev libexpat1-dev gettext autoconf";
-        const char* others = "build-essential wget libssl-dev libcurl4-gnutls-dev libexpat1-dev gettext autoconf";
-        if (packageManager != "dnf") executePackageManagerCommand(packageManager, others);
-        else executePackageManagerCommand(packageManager, dnf);
+        std::cout << "Git is not installed/not on version 2.40.1, building from source.\n";
+        if (packageManager == "sudo dnf install") executePackageManagerCommand(packageManager, "build-essential wget libssl-dev libcurl4-gnutls-dev libexpat1-dev gettext autoconf");
+        else executePackageManagerCommand(packageManager, "@development-tools wget libssl-dev libcurl4-gnutls-dev libexpat1-dev gettext autoconf");
         system("wget https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.40.1.tar.gz");
         system("tar xzf v2.40.1.tar.gz");
         system("cd git-2.40.1 && make configure && ./configure --prefix=/usr && make all && sudo make install");
