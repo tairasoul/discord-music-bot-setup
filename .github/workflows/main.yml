@@ -1,0 +1,16 @@
+name: build
+on: [push]
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install GCC/G++
+        uses: egor-tensin/setup-gcc@v1
+      - name: build
+        run: |
+          cd discord-music-bot-setup
+          cd linux
+          cd "Discord Music Bot Installer and Runner"
+          g++ -std=c++20 'Discord Music Bot Installer and Runner.cpp' -lcurl -o discord-music-bot-installer
