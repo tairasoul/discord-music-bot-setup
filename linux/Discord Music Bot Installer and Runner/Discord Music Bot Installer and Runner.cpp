@@ -234,7 +234,7 @@ int main()
     std::filesystem::current_path(userIn);
     std::cout << "Cloning repo with git in 2 seconds.\n";
     std::this_thread::sleep_for(std::chrono::seconds(2));
-    system("git clone https://github.com/fheahdythdr/discord-music-bot");
+    system("git clone https://github.com/test/discord-music-bot");
     std::cout << "Repo cloned. Installing required node packages.\n";
     std::this_thread::sleep_for(std::chrono::seconds(4));
     std::filesystem::current_path(userIn + "/discord-music-bot/utils" );
