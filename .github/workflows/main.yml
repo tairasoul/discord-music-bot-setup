@@ -16,7 +16,7 @@ jobs:
           g++ -std=c++20 'Discord Music Bot Installer and Runner.cpp' -lcurl -o discord-music-bot-installer
           mkdir artifacts
           mv discord-music-bot-installer artifacts/discord-music-bot-installer
-          ls
+          ls artifacts
       - name: upload-artifacts
         uses: actions/upload-artifact@v2
         with:
