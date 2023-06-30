@@ -10,6 +10,7 @@ jobs:
         uses: egor-tensin/setup-gcc@v1
       - name: build
         run: |
+          sudo apt-get install libcurl4-gnutls-dev
           cd discord-music-bot-setup
           cd linux
           cd "Discord Music Bot Installer and Runner"
