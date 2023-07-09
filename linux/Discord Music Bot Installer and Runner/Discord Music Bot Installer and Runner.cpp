@@ -251,5 +251,5 @@ int main()
     tokenFile.close();
 
     std::cout << "Starting up the bot..\n";
-    system("node bot.mjs");
+    system("node dist/bot");
 }
