@@ -139,12 +139,12 @@ int main()
     DWORD gitExitCode;
     std::string gitOutput;
     getExitCode(gitCmd, &gitOutput, &gitExitCode);
-    if (gitExitCode == 0 && trim(gitOutput).starts_with("git version 2.40.1")) {
+    if (gitExitCode == 0 && trim(gitOutput).starts_with("git version")) {
         std::cout << "Git is installed, skipping install.\n" << std::endl;
         std::this_thread::sleep_for(std::chrono::seconds(2));
     }
     else {
-        std::cout << "Git is not installed/not on version 2.40.1, running installer in 5 seconds.\n";
+        std::cout << "Git is not installed, running installer in 5 seconds.\n";
         writefile("https://github.com/git-for-windows/git/releases/download/v2.40.1.windows.1/Git-2.40.1-64-bit.exe", (temp / "Git-2.40.1-64-bit.exe").string());
         std::wstring gitWide = stringToWideString((temp / "Git-2.40.1-64-bit.exe").string());
         STARTUPINFOW si;
@@ -222,8 +222,6 @@ int main()
     system("git clone https://github.com/fheahdythdr/discord-music-bot");
     std::cout << "Repo cloned. Installing required node packages.\n";
     std::this_thread::sleep_for(std::chrono::seconds(4));
-    std::filesystem::current_path(userIn + "\\discord-music-bot\\utils" );
-    system("npm i");
     std::filesystem::current_path(userIn + "\\discord-music-bot");
     system("npm i");
 
@@ -236,5 +234,5 @@ int main()
     tokenFile.close();
 
     std::cout << "Starting up the bot..\n";
-    system("node bot.mjs");
+    system("node dist/bot");
 }
