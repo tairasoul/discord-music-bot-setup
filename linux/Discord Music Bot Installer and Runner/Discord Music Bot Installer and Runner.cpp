@@ -237,8 +237,6 @@ int main()
     system("git clone https://github.com/tairasoul/discord-music-bot");
     std::cout << "Repo cloned. Installing required node packages.\n";
     std::this_thread::sleep_for(std::chrono::seconds(4));
-    std::filesystem::current_path(userIn + "/discord-music-bot/utils" );
-    system("npm i");
     std::filesystem::current_path(userIn + "/discord-music-bot");
     system("npm i");
 
