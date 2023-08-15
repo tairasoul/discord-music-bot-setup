@@ -194,12 +194,12 @@ int main()
     int gitExitCode;
     std::string gitOutput;
     getExitCode(gitCmd, &gitOutput, &gitExitCode);
-    if (gitExitCode == 0 && trim(gitOutput).starts_with("git version 2.40.1")) {
+    if (gitExitCode == 0 && trim(gitOutput).starts_with("git version")) {
         std::cout << "Git is installed, skipping install.\n" << std::endl;
         std::this_thread::sleep_for(std::chrono::seconds(2));
     }
     else {
-        std::cout << "Git is not installed/not on version 2.40.1, building from source.\n";
+        std::cout << "Git is not installed, building from source.\n";
         if (packageManager == "sudo dnf install") executePackageManagerCommand(packageManager, "build-essential wget libssl-dev libcurl4-gnutls-dev libexpat1-dev gettext autoconf");
         else executePackageManagerCommand(packageManager, "@development-tools wget libssl-dev libcurl4-gnutls-dev libexpat1-dev gettext autoconf");
         system("wget https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.40.1.tar.gz");
